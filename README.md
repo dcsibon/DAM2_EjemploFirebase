@@ -1,4 +1,4 @@
-## App Gestión de notas (EjemploFirebase)
+## EjemploFirebase: App Gestión de notas
 
 Esta es una aplicación realizada en Android Studio con Kotlin, Jetpack Compose y Firebase.
 
