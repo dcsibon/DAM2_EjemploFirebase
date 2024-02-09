@@ -5,6 +5,10 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 
+/**
+ * Vista composable que sirve como punto de entrada o pantalla inicial,
+ * redirigiendo al usuario a la pantalla de inicio de sesión o al home según si hay una sesión iniciada.
+ */
 @Composable
 fun BlankView(navController: NavController){
 

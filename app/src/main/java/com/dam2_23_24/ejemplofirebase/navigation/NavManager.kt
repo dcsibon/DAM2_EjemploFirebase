@@ -14,9 +14,16 @@ import com.dam2_23_24.ejemplofirebase.views.login.TabsView
 import com.dam2_23_24.ejemplofirebase.views.notes.AddNoteView
 import com.dam2_23_24.ejemplofirebase.views.notes.EditNoteView
 
+/**
+ * Gestiona la navegación entre las diferentes pantallas de la aplicación utilizando un NavHost.
+ * Define las rutas de navegación y asocia cada ruta a una vista composable específica.
+ */
 @Composable
 fun NavManager(loginVM: LoginViewModel, notesVM: NotesViewModel){
+    // DCS - Configuración del sistema de navegación y definición de las rutas.
+
     val navController = rememberNavController()
+
     NavHost(navController = navController, startDestination = "Blank" ){
         composable("Blank"){
             BlankView(navController)

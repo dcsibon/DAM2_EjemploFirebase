@@ -20,12 +20,17 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import com.dam2_23_24.ejemplofirebase.components.CardNote
+import com.dam2_23_24.ejemplofirebase.views.components.CardNote
 import com.dam2_23_24.ejemplofirebase.viewModels.NotesViewModel
 
+/**
+ * Vista composable para la pantalla principal de la aplicación. Muestra una lista de notas y permite
+ * al usuario añadir nuevas notas o editarlas.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeView(navController: NavController, notesVM: NotesViewModel){
+fun HomeView(navController: NavController, notesVM: NotesViewModel) {
+    // DCS - Estructura de la interfaz de la pantalla principal con una lista de notas y acciones para añadir o editar.
     
     LaunchedEffect(Unit){
         notesVM.fetchNotes()

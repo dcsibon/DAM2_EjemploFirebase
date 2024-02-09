@@ -12,32 +12,32 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.dam2_23_24.ejemplofirebase.components.Alert
+import com.dam2_23_24.ejemplofirebase.views.components.Alert
 import com.dam2_23_24.ejemplofirebase.viewModels.LoginViewModel
 
+/**
+ * Vista composable para el inicio de sesión. Permite al usuario introducir sus credenciales
+ * y autenticarse para acceder a la aplicación.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LoginView(navController: NavController, loginVM: LoginViewModel) {
+    // DCS - Estructura de la interfaz de inicio de sesión con campos de texto y botón de entrada.
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = Modifier.fillMaxSize()
     ) {
-        var email by remember { mutableStateOf("") }
-        var password by remember { mutableStateOf("") }
 
         OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
+            value = loginVM.email,
+            onValueChange = { loginVM.changeEmail(it) },
             label = { Text(text = "Email") },
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
             modifier = Modifier
@@ -46,8 +46,8 @@ fun LoginView(navController: NavController, loginVM: LoginViewModel) {
         )
 
         OutlinedTextField(
-            value = password,
-            onValueChange = { password = it },
+            value = loginVM.password,
+            onValueChange = { loginVM.changePassword(it) },
             label = { Text(text = "Password") },
             visualTransformation = PasswordVisualTransformation(),
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
@@ -60,9 +60,7 @@ fun LoginView(navController: NavController, loginVM: LoginViewModel) {
 
         Button(
             onClick = {
-                loginVM.login(email, password) {
-                    navController.navigate("Home")
-                }
+                loginVM.login { navController.navigate("Home") }
             }, modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 30.dp, end = 30.dp)
@@ -72,14 +70,14 @@ fun LoginView(navController: NavController, loginVM: LoginViewModel) {
 
         if (loginVM.showAlert) {
             Alert(title = "Alerta",
-                message = "Usuario y/o Contrasena Incorrectos",
+                message = "Usuario y/o contrasena incorrectos",
                 confirmText = "Aceptar",
-                onConfirmClick = { loginVM.closeAlert() }) {
-            }
+                onConfirmClick = { loginVM.closeAlert() },
+                onDismissClick = { } ) // DCS - ninguna acción en onDismissClick para que no oculte el diálogo
         }
 
-
     }
+
 }
 
 

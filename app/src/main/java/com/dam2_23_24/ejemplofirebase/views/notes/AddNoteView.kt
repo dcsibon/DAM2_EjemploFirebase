@@ -17,10 +17,6 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -28,11 +24,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.dam2_23_24.ejemplofirebase.viewModels.NotesViewModel
 
+/**
+ * Vista composable para añadir una nueva nota. Proporciona campos de texto para el título y contenido de la nota,
+ * y guarda la nueva nota en la base de datos.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AddNoteView(navController: NavController, notesVM: NotesViewModel) {
-    var title by remember { mutableStateOf("") }
-    var note by remember { mutableStateOf("") }
+    // DCS - Estructura de la interfaz para añadir una nueva nota.
+
     val context = LocalContext.current
 
     Scaffold(
@@ -48,7 +48,7 @@ fun AddNoteView(navController: NavController, notesVM: NotesViewModel) {
                 },
                 actions = {
                     IconButton(onClick = {
-                        notesVM.saveNewNote(title, note){
+                        notesVM.saveNewNote{
                             Toast.makeText(context, "Nota guardada OK", Toast.LENGTH_SHORT).show()
                             navController.popBackStack()
                         }
@@ -65,24 +65,22 @@ fun AddNoteView(navController: NavController, notesVM: NotesViewModel) {
                 .fillMaxSize(),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            OutlinedTextField(value = title,
-                onValueChange = { title = it },
+            OutlinedTextField(value = notesVM.title,
+                onValueChange = { notesVM.changeTitle(it) },
                 label = { Text(text = "Titulo") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(start = 20.dp, end = 20.dp)
             )
 
-            OutlinedTextField(value = note,
-                onValueChange = { note = it },
+            OutlinedTextField(value = notesVM.note,
+                onValueChange = { notesVM.changeNote(it) },
                 label = { Text(text = "Nota") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight()
                     .padding(start = 20.dp, end = 20.dp, bottom = 10.dp)
             )
-
         }
     }
-
 }

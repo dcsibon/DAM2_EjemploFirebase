@@ -1,4 +1,4 @@
-package com.dam2_23_24.ejemplofirebase.components
+package com.dam2_23_24.ejemplofirebase.views.components
 
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -9,6 +9,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 
+/**
+ * Muestra un diálogo de alerta composable. Se utiliza para mostrar mensajes de error o confirmaciones.
+ */
 @Composable
 fun Alert(
     title: String,
@@ -17,6 +20,8 @@ fun Alert(
     onConfirmClick: () -> Unit,
     onDismissClick: () -> Unit
 ) {
+    // DCS - Estructura del diálogo de alerta.
+
     val scroll = rememberScrollState(0)
 
     AlertDialog(onDismissRequest = { onDismissClick() },
@@ -34,5 +39,4 @@ fun Alert(
             }
         }
     )
-
 }
